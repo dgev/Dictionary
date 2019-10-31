@@ -1,4 +1,4 @@
-package example;
+package Dictionary;
 
 public class DictionaryObject<K, V> {
 	private K key;
@@ -12,9 +12,17 @@ public class DictionaryObject<K, V> {
 	public V getValue() {
 		return this.value;
 	}
+
+	public void setValue(V value) {
+		this.value = value;
+	}
 	
-	public String getKey() {
-		return this.key.toString();
+	public K getKey() {
+		return this.key;
+	}
+
+	public void setKey(K key) {
+		this.key = key;
 	}
 
 }
