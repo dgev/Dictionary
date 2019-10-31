@@ -61,6 +61,9 @@ public class Dictionary<K, V> {
 	}
 
 	public V get(K key) {
+		if (objects[key.hashCode() % size] == null) {
+			return null;
+		}
 		return objects[key.hashCode() % size].getValue();
 	}
 
@@ -83,12 +86,10 @@ public class Dictionary<K, V> {
 	}
 
 	public void clear() {
-		for (int i = 0; i< objects.length; i++) {
+		for (int i = 0; i < objects.length; i++) {
 			objects[i] = null;
 		}
 	}
-
-
 
 	public static void main(String[] args) {
 		Dictionary<Integer, String> dict = new Dictionary<Integer, String>(3);
