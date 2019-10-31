@@ -90,6 +90,23 @@ public class Dictionary<K, V> {
 			objects[i] = null;
 		}
 	}
+	  public String[] entrySet() {
+        String[] array = new String[3];
+        for (int i = 0; i < objects.length; i++) {
+            array[i] = " Key " + (objects[i].getKey().toString()) + " Value " + objects[i].getValue();
+
+        }
+        return array;
+    }
+
+    public String[] getKeys() {
+        String[] array = new String[3];
+        for (int i = 0; i < objects.length; i++) {
+            array[i] = objects[i].getKey().toString();
+        }
+        return array;
+    }
+
 
 	public static void main(String[] args) {
 		Dictionary<Integer, String> dict = new Dictionary<Integer, String>(3);
