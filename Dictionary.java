@@ -120,6 +120,36 @@ public class Dictionary<K, V> {
 		}
 		return true;
 	}
+	 public String[] values() {
+        String[] values = new String[size];
+        for (int i = 0; i < size; i++) {
+            if (objects[i] != null) {
+                values[i] = objects[i].getValue().toString();
+            } else {
+                values[i] = null;
+            }
+        }
+        return values;
+    }
+
+    private DictionaryObject<K, V>[] getArr() {
+        return objects;
+    }
+
+    public void putAll(Dictionary<K, V> newDict) {
+
+        if (objects.length == newDict.size()) {
+            for (int i = 0; i < size; i++) {
+                if (newDict.getArr()[i] != null) {
+                    objects[i].setKey(newDict.getArr()[i].getKey());
+                    objects[i].setValue(newDict.getArr()[i].getValue());
+                }else{
+					objects[i] = null;
+				}
+            }
+        }
+    }
+
 
 	public static void main(String[] args) {
 		Dictionary<Integer, String> dict = new Dictionary<Integer, String>(3);
