@@ -90,36 +90,55 @@ public class Dictionary<K, V> {
 			objects[i] = null;
 		}
 	}
-	  public String[] entrySet() {
-        String[] array = new String[3];
-        for (int i = 0; i < objects.length; i++) {
-            array[i] = " Key " + (objects[i].getKey().toString()) + " Value " + objects[i].getValue();
 
-        }
-        return array;
-    }
+	public String[] entrySet() {
+		String[] array = new String[3];
+		for (int i = 0; i < objects.length; i++) {
+			array[i] = " Key " + (objects[i].getKey().toString()) + " Value " + objects[i].getValue();
 
-    public String[] getKeys() {
-        String[] array = new String[3];
-        for (int i = 0; i < objects.length; i++) {
-            array[i] = objects[i].getKey().toString();
-        }
-        return array;
-    }
-	
-    public boolean equals(Dictionary<K, V> newDict) {
-	     if (objects.length == newDict.size()) {
-		  for (int i = 0; i < size; i++) {
-		 	if (newDict.getArr()[i] != null && objects[i] != null) {
-				if (newDict.getArr()[i].getValue() != objects[i].getValue()) {
-					return false;
+		}
+		return array;
+	}
+
+	public String[] getKeys() {
+		String[] array = new String[3];
+		for (int i = 0; i < objects.length; i++) {
+			array[i] = objects[i].getKey().toString();
+		}
+		return array;
+	}
+
+	public boolean equals(Dictionary<K, V> newDict) {
+		if (objects.length == newDict.size()) {
+			for (int i = 0; i < size; i++) {
+				if (newDict.getArr()[i] != null && objects[i] != null) {
+					if (newDict.getArr()[i].getValue() != objects[i].getValue()) {
+						return false;
+					}
 				}
 			}
 		}
-	}
 		return true;
-    }
+	}
 
+	public static void main(String[] args) {
+		Dictionary<Integer, String> dict = new Dictionary<Integer, String>(3);
+		dict.put(1, "value");
+		dict.put(2, "value2");
+//		Dictionary <Integer, Integer> dict = new Dictionary<Integer, Integer>(3);
+//		dict.put(1, 5);
+//		System.out.println(dict.containsKey(1));
+//		System.out.println(dict.get(1));
+//		System.out.println(dict.containsValue("value"));
+		System.out.println(dict.isEmpty());
+		dict.clear();
+		System.out.println(dict.isEmpty());
+//		dict.remove(1);
+//		System.out.println(dict.remove(1));
+
+	}
+
+}
 
 	public static void main(String[] args) {
 		Dictionary<Integer, String> dict = new Dictionary<Integer, String>(3);
