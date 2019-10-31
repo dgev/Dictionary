@@ -151,21 +151,38 @@ public class Dictionary<K, V> {
     }
 
 
-	public static void main(String[] args) {
-		Dictionary<Integer, String> dict = new Dictionary<Integer, String>(3);
-		dict.put(1, "value");
-		dict.put(2, "value2");
+    public static void main(String[] args) {
+        Dictionary<String, String> dict = new Dictionary<String, String>(3);
+//        dict.put(1, "value");
+        dict.put("kk", "value2");
+        dict.put("ll", "value6");
+        dict.put("mm", "value8");
+
+        Dictionary<String, String> dicto = new Dictionary<String, String>(3);
+//        dict.put(1, "value");
+        dicto.put("1", "valuee");
+        dicto.put("2", "valueferf");
+        dicto.put("3", "valuefjyrg");
+        dicto.putAll(dict);
+        DictionaryObject<String, String>[] obj = dicto.getArr();
+        for (int i = 0; i < obj.length; i++) {
+            System.out.println(obj[i].getValue());
+        }
+        System.out.println();
+        System.out.println(dict.get("mm"));
 //		Dictionary <Integer, Integer> dict = new Dictionary<Integer, Integer>(3);
 //		dict.put(1, 5);
 //		System.out.println(dict.containsKey(1));
 //		System.out.println(dict.get(1));
 //		System.out.println(dict.containsValue("value"));
-		System.out.println(dict.isEmpty());
-		dict.clear();
-		System.out.println(dict.isEmpty());
+//        System.out.println(dict.isEmpty());
+//        dict.entrySet();
+//        dict.clear();
+//        System.out.println(dict.isEmpty());
 //		dict.remove(1);
 //		System.out.println(dict.remove(1));
 
-	}
+    }
+
 
 }
