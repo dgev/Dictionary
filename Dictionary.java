@@ -106,6 +106,19 @@ public class Dictionary<K, V> {
         }
         return array;
     }
+	
+    public boolean equals(Dictionary<K, V> newDict) {
+	     if (objects.length == newDict.size()) {
+		  for (int i = 0; i < size; i++) {
+		 	if (newDict.getArr()[i] != null && objects[i] != null) {
+				if (newDict.getArr()[i].getValue() != objects[i].getValue()) {
+					return false;
+				}
+			}
+		}
+	}
+		return true;
+    }
 
 
 	public static void main(String[] args) {
