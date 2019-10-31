@@ -75,14 +75,14 @@ public class Dictionary<K, V> {
 
 	public V remove(K key) {
 		for (DictionaryObject<K, V> obj : objects) {
-			if (obj != null && obj.getKey().equals(key.toString())) {
+			if (obj != null && obj.getKey().equals(key)) {
 				V removed = obj.getValue();
-				objects[key.hashCode() % size] = null;
+				obj.setKey(null);
+				obj.setValue(null);
 				return removed;
 			}
 		}
 		return null;
-
 	}
 
 	public void clear() {
