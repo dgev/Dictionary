@@ -139,22 +139,3 @@ public class Dictionary<K, V> {
 	}
 
 }
-
-	public static void main(String[] args) {
-		Dictionary<Integer, String> dict = new Dictionary<Integer, String>(3);
-		dict.put(1, "value");
-		dict.put(2, "value2");
-//		Dictionary <Integer, Integer> dict = new Dictionary<Integer, Integer>(3);
-//		dict.put(1, 5);
-//		System.out.println(dict.containsKey(1));
-//		System.out.println(dict.get(1));
-//		System.out.println(dict.containsValue("value"));
-		System.out.println(dict.isEmpty());
-		dict.clear();
-		System.out.println(dict.isEmpty());
-//		dict.remove(1);
-//		System.out.println(dict.remove(1));
-
-	}
-
-}
