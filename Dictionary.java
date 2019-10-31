@@ -33,7 +33,12 @@ public class Dictionary<K, V> {
 	}
 
 	public boolean isEmpty() {
-		return (objects.length == 0);
+		for (DictionaryObject<K, V> obj : objects) {
+			if (objects.length > 0 && obj != null) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public boolean containsKey(K key) {
@@ -54,7 +59,7 @@ public class Dictionary<K, V> {
 		return false;
 
 	}
-	
+
 	public V get(K key) {
 		return objects[key.hashCode() % size].getValue();
 	}
@@ -64,19 +69,26 @@ public class Dictionary<K, V> {
 		DictionaryObject<K, V> obj = new DictionaryObject<K, V>(key, value);
 		objects[current_key] = obj;
 	}
-	
+
 	public V remove(K key) {
-		for (DictionaryObject<K, V> obj : objects) {			
+		for (DictionaryObject<K, V> obj : objects) {
 			if (obj != null && obj.getKey().equals(key.toString())) {
 				V removed = obj.getValue();
 				objects[key.hashCode() % size] = null;
-				return removed;	
+				return removed;
 			}
 		}
-		return null;	
-		
+		return null;
+
 	}
-	
+
+	public void clear() {
+		for (int i = 0; i< objects.length; i++) {
+			objects[i] = null;
+		}
+	}
+
+
 
 	public static void main(String[] args) {
 		Dictionary<Integer, String> dict = new Dictionary<Integer, String>(3);
@@ -84,12 +96,14 @@ public class Dictionary<K, V> {
 		dict.put(2, "value2");
 //		Dictionary <Integer, Integer> dict = new Dictionary<Integer, Integer>(3);
 //		dict.put(1, 5);
-		System.out.println(dict.containsKey(1));
-		System.out.println(dict.get(1));
-		System.out.println(dict.containsValue("value"));
+//		System.out.println(dict.containsKey(1));
+//		System.out.println(dict.get(1));
+//		System.out.println(dict.containsValue("value"));
+		System.out.println(dict.isEmpty());
+		dict.clear();
 		System.out.println(dict.isEmpty());
 //		dict.remove(1);
-		System.out.println(dict.remove(1));
+//		System.out.println(dict.remove(1));
 
 	}
 
