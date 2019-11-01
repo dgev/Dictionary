@@ -1,15 +1,18 @@
-package example;
+package homework_7;
 
-public class Dictionary<K, V> {
+import java.util.*;
+
+public class Dictionary<K, V> implements Map {
 
 	private K key;
 	private V value;
-	private final int size;
+	private final int capacity;
+	private int size = 0;
 	private DictionaryObject<K, V>[] objects;
 
-	public Dictionary(int size) {
-		this.size = size;
-		objects = new DictionaryObject[size];
+	public Dictionary(int capacity) {
+		this.capacity = capacity;
+		objects = new DictionaryObject[capacity];
 	}
 
 	public K getKey() {
@@ -29,10 +32,16 @@ public class Dictionary<K, V> {
 	}
 
 	public int size() {
-		return objects.length;
+		return this.size;
 	}
 
+	private DictionaryObject<K, V>[] getArr() {
+		return objects;
+	}
+
+	@Override
 	public boolean isEmpty() {
+		// TODO Auto-generated method stub
 		for (DictionaryObject<K, V> obj : objects) {
 			if (objects.length > 0 && obj != null) {
 				return false;
@@ -41,39 +50,52 @@ public class Dictionary<K, V> {
 		return true;
 	}
 
-	public boolean containsKey(K key) {
-		if (objects[key.hashCode() % size] != null) {
-			return true;
-		}
-
-		return false;
-
+	public int keyToHash(Object key) {
+		return Math.abs(key.hashCode() % capacity);
 	}
 
-	public boolean containsValue(V value) {
+	@Override
+	public boolean containsKey(Object key) {
+		// TODO Auto-generated method stub
+		if (objects[keyToHash(key)] != null) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean containsValue(Object value) {
+		// TODO Auto-generated method stub
 		for (DictionaryObject<K, V> obj : objects) {
 			if (obj != null && obj.getValue().equals(value)) {
 				return true;
 			}
 		}
 		return false;
-
 	}
 
-	public V get(K key) {
-		if (objects[key.hashCode() % size] == null) {
-			return null;
+	@Override
+	public Object get(Object key) {
+		// TODO Auto-generated method stub
+		if (objects[keyToHash(key)] != null) {
+			return objects[keyToHash(key)].getValue();
 		}
-		return objects[key.hashCode() % size].getValue();
+		return null;
 	}
 
-	public void put(K key, V value) {
-		int current_key = key.hashCode() % size;
-		DictionaryObject<K, V> obj = new DictionaryObject<K, V>(key, value);
+	@Override
+	public Object put(Object key, Object value) {
+		// TODO Auto-generated method stub
+		int current_key = keyToHash(key);
+		DictionaryObject<K, V> obj = new DictionaryObject(key, value, null);
 		objects[current_key] = obj;
+		size++;
+		return obj;
 	}
 
-	public V remove(K key) {
+	@Override
+	public Object remove(Object key) {
+		// TODO Auto-generated method stub
 		for (DictionaryObject<K, V> obj : objects) {
 			if (obj != null && obj.getKey().equals(key)) {
 				V removed = obj.getValue();
@@ -85,104 +107,103 @@ public class Dictionary<K, V> {
 		return null;
 	}
 
+	@Override
+	public void putAll(Map m) {
+		Iterator<K> iterator = m.keySet().iterator();
+		while (iterator.hasNext()) {
+			K key = iterator.next();
+			put(key, m.get(key));
+		}
+	}
+
+	@Override
 	public void clear() {
-		for (int i = 0; i < objects.length; i++) {
+		// TODO Auto-generated method stub
+		for (int i = 0; i < size; i++) {
 			objects[i] = null;
 		}
 	}
 
-	public String[] entrySet() {
-		String[] array = new String[3];
-		for (int i = 0; i < objects.length; i++) {
-			array[i] = " Key " + (objects[i].getKey().toString()) + " Value " + objects[i].getValue();
-
-		}
-		return array;
-	}
-
-	public String[] getKeys() {
-		String[] array = new String[3];
-		for (int i = 0; i < objects.length; i++) {
-			array[i] = objects[i].getKey().toString();
-		}
-		return array;
-	}
-
-	public boolean equals(Dictionary<K, V> newDict) {
-		if (objects.length == newDict.size()) {
-			for (int i = 0; i < size; i++) {
-				if (newDict.getArr()[i] != null && objects[i] != null) {
-					if (newDict.getArr()[i].getValue() != objects[i].getValue()) {
-						return false;
-					}
-				}
+	@Override
+	public Set keySet() {
+		Set array = new HashSet();
+		for (int i = 0; i < size; i++) {
+			if (objects[i] != null) {
+				array.add(objects[i].getKey());
 			}
 		}
-		return true;
+		return array;
 	}
-	 public String[] values() {
-        String[] values = new String[size];
-        for (int i = 0; i < size; i++) {
-            if (objects[i] != null) {
-                values[i] = objects[i].getValue().toString();
-            } else {
-                values[i] = null;
-            }
-        }
-        return values;
-    }
 
-    private DictionaryObject<K, V>[] getArr() {
-        return objects;
-    }
+	@Override
+	public Collection values() {
+		// TODO Auto-generated method stub
+		ArrayList<V> list = new ArrayList<V>();
+		for (DictionaryObject<K, V> obj : objects) {
+			if (obj != null) {
+				list.add(obj.getValue());
+			}
+		}
+		return list;
+	}
 
-    public void putAll(Dictionary<K, V> newDict) {
+	@Override
+	public Set entrySet() {
+		Set set = new HashSet(size);
+		for (int i = 0; i < size; i++) {
+			if (objects[i] != null) {
+				set.add(objects[i]);
+			}
+		}
+		return set;
+	}
 
-        if (objects.length == newDict.size()) {
-            for (int i = 0; i < size; i++) {
-                if (newDict.getArr()[i] != null) {
-                    objects[i].setKey(newDict.getArr()[i].getKey());
-                    objects[i].setValue(newDict.getArr()[i].getValue());
-                }else{
-					objects[i] = null;
-				}
-            }
-        }
-    }
+	public static void main(String[] args) {
 
+		Dictionary<String, String> dict = new Dictionary<String, String>(6);
 
-    public static void main(String[] args) {
-        Dictionary<String, String> dict = new Dictionary<String, String>(3);
 //        dict.put(1, "value");
-        dict.put("kk", "value2");
-        dict.put("ll", "value6");
-        dict.put("mm", "value8");
 
-        Dictionary<String, String> dicto = new Dictionary<String, String>(3);
-//        dict.put(1, "value");
-        dicto.put("1", "valuee");
-        dicto.put("2", "valueferf");
-        dicto.put("3", "valuefjyrg");
-        dicto.putAll(dict);
-        DictionaryObject<String, String>[] obj = dicto.getArr();
-        for (int i = 0; i < obj.length; i++) {
-            System.out.println(obj[i].getValue());
-        }
-        System.out.println();
-        System.out.println(dict.get("mm"));
-//		Dictionary <Integer, Integer> dict = new Dictionary<Integer, Integer>(3);
-//		dict.put(1, 5);
-//		System.out.println(dict.containsKey(1));
-//		System.out.println(dict.get(1));
-//		System.out.println(dict.containsValue("value"));
-//        System.out.println(dict.isEmpty());
-//        dict.entrySet();
-//        dict.clear();
-//        System.out.println(dict.isEmpty());
-//		dict.remove(1);
-//		System.out.println(dict.remove(1));
+		dict.put("4", "value2");
+		dict.put("5", "value6");
+		dict.put("6", "value8");
+		Map<String, String> dicto = new HashMap<String, String>(6);
 
-    }
+//      dict.put(1, "value");
 
+		dicto.put("1", "valuee");
+		dicto.put("2", "valueferf");
+		dicto.put("3", "valuefjyrg");
+
+		Set set;
+		set = dict.keySet();
+		Iterator iterator = set.iterator();
+		while (iterator.hasNext()) {
+			String key = (String) iterator.next();
+			System.out.println(key);
+		}
+		System.out.println(set.iterator());
+
+		Set entry = dict.entrySet();
+		for (Object number : entry) {
+			System.out.println("Number = " + number);
+		}
+
+		dict.putAll(dicto);
+//		System.out.println(dict.isEmpty());
+//		System.out.println(dict.size());
+		Collection arrlist = dict.values();
+		
+		for (Object number : arrlist) {
+	         System.out.println("Number = " + number);
+	      } 
+
+		DictionaryObject<String, String>[] obj = dict.getArr();
+		for (int i = 0; i < obj.length; i++) {
+			if (obj[i] != null) {
+				System.out.println(obj[i].getValue());
+			}
+		}
+	}
 
 }
