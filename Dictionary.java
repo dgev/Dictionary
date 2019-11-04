@@ -10,31 +10,38 @@ public class Dictionary<K, V> implements Map {
 	private int size = 0;
 	private DictionaryObject<K, V>[] objects;
 
+	//creates a new dictionary with a fixed capacity
 	public Dictionary(int capacity) {
 		this.capacity = capacity;
 		objects = new DictionaryObject[capacity];
 	}
-
+	
+	//gets the key
 	public K getKey() {
 		return key;
 	}
-
+	
+	//sets the key
 	public void setKey(K key) {
 		this.key = key;
 	}
-
+	
+	//gets the value	
 	public V getValue() {
 		return value;
 	}
-
+	
+	//sets the value
 	public void setValue(V value) {
 		this.value = value;
 	}
-
+	
+	//gets the size of the dictionary
 	public int size() {
 		return this.size;
 	}
-
+	
+	//returns an array of type DictionaryObject<K, V> incluing the objects of the dictionary
 	private DictionaryObject<K, V>[] getArr() {
 		return objects;
 	}
@@ -55,7 +62,8 @@ public class Dictionary<K, V> implements Map {
 		}
 		return null;
 	}
-
+	
+	//checks if the dictionary is empty or not
 	@Override
 	public boolean isEmpty() {
 		// TODO Auto-generated method stub
@@ -66,11 +74,13 @@ public class Dictionary<K, V> implements Map {
 		}
 		return true;
 	}
-
+	
+	//finds the hashcode of the key
 	public int keyToHash(Object key) {
 		return Math.abs(key.hashCode() % capacity);
 	}
-
+	
+	//checks if the dictionary contains the given key
 	@Override
 	public boolean containsKey(Object key) {
 		// TODO Auto-generated method stub
@@ -80,7 +90,8 @@ public class Dictionary<K, V> implements Map {
 		}
 		return false;
 	}
-
+	
+	//checks if the dictionary contains the given value
 	@Override
 	public boolean containsValue(Object value) {
 		// TODO Auto-generated method stub
@@ -100,7 +111,8 @@ public class Dictionary<K, V> implements Map {
 		}
 		return false;
 	}
-
+	
+	//fetches the value mapped by a particular key mentioned in the parameter
 	@Override
 	public Object get(Object key) {
 		// TODO Auto-generated method stub
@@ -110,7 +122,8 @@ public class Dictionary<K, V> implements Map {
 		}
 		return null;
 	}
-
+	
+	//inserts a mapping into the dictionary
 	@Override
 	public Object put(Object key, Object value) {
 		// TODO Auto-generated method stub
@@ -131,7 +144,8 @@ public class Dictionary<K, V> implements Map {
 		}
 		return null;
 	}
-
+	
+	//accepts a key as a parameter and removes the corresponding value mapped to the key
 	@Override
 	public Object remove(Object key) {
 		// TODO Auto-generated method stub
@@ -175,7 +189,8 @@ public class Dictionary<K, V> implements Map {
 		}
 		return null;
 	}
-
+	
+	//copies all of the elements i.e., the mappings, from one map into another
 	@Override
 	public void putAll(Map m) {
 		Iterator<K> iterator = m.keySet().iterator();
@@ -184,7 +199,8 @@ public class Dictionary<K, V> implements Map {
 			put(key, m.get(key));
 		}
 	}
-
+	
+	//removes all items from the dictionary
 	@Override
 	public void clear() {
 		// TODO Auto-generated method stub
@@ -192,7 +208,8 @@ public class Dictionary<K, V> implements Map {
 			objects[i] = null;
 		}
 	}
-
+	
+	//creates a set out of the key elements contained in the hash map
 	@Override
 	public Set keySet() {
 		Set array = new HashSet();
@@ -225,7 +242,8 @@ public class Dictionary<K, V> implements Map {
 		}
 		return list;
 	}
-
+	
+	//creates a set out of the same elements contained in the hash map
 	@Override
 	public Set entrySet() {
 		Set set = new HashSet(size);
