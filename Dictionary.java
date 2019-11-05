@@ -46,6 +46,7 @@ public class Dictionary<K, V> implements Map {
 		return objects;
 	}
 
+	//gets the object with the corresponding key in the parameter
 	private DictionaryObject<K, V> getObject(Object key) {
 		DictionaryObject<K, V> current = objects[keyToHash(key)];
 		if (current != null) {
@@ -226,6 +227,7 @@ public class Dictionary<K, V> implements Map {
 		return array;
 	}
 
+	//returns a list of values from the dictionary
 	@Override
 	public Collection values() {
 		// TODO Auto-generated method stub
