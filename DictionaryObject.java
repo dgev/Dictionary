@@ -31,10 +31,12 @@ public class DictionaryObject<K, V> {
         this.key = key;
     }
 
+    //returns the next element of the dictionary
     public DictionaryObject<K, V> getNext() {
         return this.next;
     }
 
+    //sets the next element
     public void setNext(DictionaryObject<K, V> next) {
         this.next = next;
     }
